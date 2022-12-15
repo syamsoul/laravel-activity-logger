@@ -1,0 +1,30 @@
+{
+    "name": "syamsoul/laravel-activity-logger",
+    "description": "This laravel package allows you to log your system activity with ease.",
+    "type": "laravel-package",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "SoulDoit\\ActivityLogger\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syamsoul Azrien",
+            "email": "syamsoulazrien.miat@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SoulDoit\\ActivityLogger\\ActivityLoggerServiceProvider"
+            ]
+        }
+    }
+}
