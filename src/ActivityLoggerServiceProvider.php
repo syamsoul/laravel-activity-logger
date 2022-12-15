@@ -4,7 +4,7 @@ namespace SoulDoit\ActivityLogger;
 
 use Illuminate\Support\ServiceProvider;
 
-class PermissionServiceProvider extends ServiceProvider
+class ActivityLoggerServiceProvider extends ServiceProvider
 {
     public function boot()
     {
