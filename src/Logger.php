@@ -23,7 +23,6 @@ class Logger
     function __construct(string $channel_name)
     {
         $this->log_instance = Log::channel($channel_name);
-        $this->start_time = microtime(true);
     }
 
     public function setTrack(string $code, bool $auto_stop=true, string $log_label="LOG")
@@ -34,6 +33,7 @@ class Logger
         $this->ref = rand(100000,999999);
         $this->log_text_prepend = "[$this->code][REF: $this->ref]";
         $this->log_label = $log_label;
+        $this->start_time = microtime(true);
 
         $this->log_instance->info("$this->log_text_prepend START $this->log_label");
         
