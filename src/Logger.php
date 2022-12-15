@@ -18,7 +18,7 @@ class Logger
     private $code;
     private $ref;
     private $start_time;
-    private $is_stop = false;
+    private $is_stop;
 
     function __construct(string $channel_name)
     {
@@ -28,6 +28,7 @@ class Logger
 
     public function setTrack(string $code, bool $auto_stop=true, string $log_label="LOG")
     {
+        $this->is_stop = false;
         $this->is_single_log = false;
         $this->code = $code;
         $this->ref = rand(100000,999999);
