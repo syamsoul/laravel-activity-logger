@@ -31,7 +31,7 @@ This package can be used in Laravel 8.x or higher. If you are using an older ver
 ## What You Can Do
 
 
-``` bash
+``` php
 <?php
 
 namespace App\Console\Commands\Order;
