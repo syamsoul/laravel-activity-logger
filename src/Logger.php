@@ -4,10 +4,9 @@ namespace SoulDoit\ActivityLogger;
 
 use Illuminate\Console\Events\CommandFinished;
 use Illuminate\Foundation\Http\Events\RequestHandled;
-use Log, Event;
-
 use SoulDoit\ActivityLogger\Exceptions\SingleLogModeNotAllowedToCallThisMethod;
 use SoulDoit\ActivityLogger\Exceptions\TrackedLoggingAlreadyStopped;
+use Log, Event;
 
 class Logger
 {
@@ -37,7 +36,7 @@ class Logger
 
         $this->log_instance->info("$this->log_text_prepend START $this->log_label");
         
-        if($auto_stop){
+        if ($auto_stop) {
             Event::listen(function (CommandFinished $event) {
                 $this->stop();
             });
@@ -49,17 +48,25 @@ class Logger
 
     public function log(string $activity)
     {
-        if($this->is_single_log){
+        if ($this->is_single_log) {
             $this->log_instance->info($activity);
-        }else{
+        } else {
             $this->log_instance->info("$this->log_text_prepend -- $activity");
         }
     }
 
     public function stop()
     {
-        if($this->is_single_log) throw SingleLogModeNotAllowedToCallThisMethod::create('stop');
-        if($this->is_stop) throw TrackedLoggingAlreadyStopped::create();
+        $is_throw_error = config('sd-activity-logger.throw_error_if_failed_stop', true);
+
+        if ($this->is_single_log) {
+            if ($is_throw_error) throw SingleLogModeNotAllowedToCallThisMethod::create('stop');
+            else return false;
+        }
+        if ($this->is_stop) {
+            if ($is_throw_error) throw TrackedLoggingAlreadyStopped::create();
+            else return false;
+        }
 
         $total_secs = number_format(microtime(true)-($this->start_time), 4);
         $this->log_instance->info("$this->log_text_prepend STOP $this->log_label (Total Time: $total_secs secs)");
